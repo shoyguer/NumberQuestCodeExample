@@ -145,14 +145,14 @@ func generateNextQuestion():
 	lblQuestion.text = str(question_number) + ". " + question_title
 	
 	match (game_mode):
-		#IF ADDITION ###########################################################
+		#region Addition
 		'add':
 			var neg_0: bool = false
 			var neg_1: bool = false
 			var pos_0: bool = false
 			
 			for i in numbers.size():
-				#GENERATING VARIABLES -------------------------------
+				#region Generating variables
 				match difficulty:
 					'easy':
 						numbers[i] = randi_range(min_value, max_value)
@@ -190,8 +190,9 @@ func generateNextQuestion():
 						
 						else:
 							numbers[i] = randi_range(int(251), max_value)
+				#endregion
 				
-				# GENERATING ANSWER AND EQUATION ---------------------
+				#region Generating answer and equation
 				if i == 0: 
 					answer = numbers[i]
 					# If number is negative, it will be formatted to (-x)
@@ -202,9 +203,10 @@ func generateNextQuestion():
 					# If number is negative, it will be formatted to (-x)
 					var numberFormatted = formatNegativeNumber(numbers[i])
 					lblEquation.text += " + " + numberFormatted
+				#endregion
+		#endregion
 		
-		
-		# IF SUBTRACTION ########################################################
+		#region Subtraction
 		'subtract':
 			var neg_0: bool = false
 			var neg_1: bool = false
@@ -212,7 +214,7 @@ func generateNextQuestion():
 			var pos_1: bool = false
 			
 			for i in numbers.size():
-			# GENERATING VARIABLES -----------------------------------
+				#region Generating variables
 				match difficulty:
 					'easy':
 						if i == 0:
@@ -266,8 +268,9 @@ func generateNextQuestion():
 						elif random_num >= .85 and not pos_1: 
 							numbers[i] = randi_range(int(251), max_value)
 							pos_1 = true
+				#endregion
 				
-				# GENERATING ANSWER AND EQUATION ---------------------
+				#region Generating answer and equation
 				if i == 0: 
 					answer = numbers[i]
 					#If number is negative, it will be formatted to (-x)
@@ -278,9 +281,10 @@ func generateNextQuestion():
 					#If number is negative, it will be formatted to (-x)
 					var numberFormatted = formatNegativeNumber(numbers[i])
 					lblEquation.text += " - " + numberFormatted
+				#endregion
+		#endregion
 		
-		
-		#IF MULTIPLICATION #####################################################
+		#region Multiplication
 		'multiply':
 			var neg_0: bool = false
 			var pos_0: bool = false
@@ -288,7 +292,7 @@ func generateNextQuestion():
 			var pos_2: bool = false
 			
 			for i in numbers.size():
-				#GENERATING VARIABLES -------------------------------
+				#region Generating variables
 				match difficulty:
 					'easy':
 						numbers[i] = randi_range(min_value, max_value)
@@ -313,34 +317,38 @@ func generateNextQuestion():
 								
 								else: 
 									numbers[i] = randi_range(101, max_value)
+				#endregion
 				
-				
-				#GENERATING ANSWER AND EQUATION ---------------------
+				#region Generating answer and equation
 				if i == 0: 
 					answer = numbers[i]
 					lblEquation.text = str(numbers[0])
 				else: 
 					answer *= numbers[i]
 					lblEquation.text += " × " + str(numbers[i])
+				#endregion
+		#endregion
 		
-		
-		#IF DIVISION ###########################################################
+		#region Division
 		'divide':
 			var neg_0: bool = false
 			var pos_0: bool = false
 			var pos_1: bool = false
 			
 			for i in numbers.size():
-				#GENERATING VARIABLES -------------------------------
+				#region Generating variables
 				numbers[i] = randi_range(min_value, max_value)
+				#endregion
 				
-				#GENERATING ANSWER AND EQUATION ---------------------
+				#region Generating answer and equation
 				if i == 0: 
 					answer = numbers[i]
 					lblEquation.text = str(numbers[0])
 				else: 
 					answer /= numbers[i]
 					lblEquation.text += " ÷ " + str(numbers[i])
+				#endregion
+		#endregion
 
 #Generates a new question
 func nextQuestion():
@@ -540,7 +548,6 @@ func resultScreenManager():
 func _coin_animation_manager(cur_coins, coin_total):
 	var in_cur_coins = cur_coins + coin_total
 	coinValueAnim = cur_coins
-	
 	
 	var tween = get_tree().create_tween()
 	tween.tween_interval(1.25)
